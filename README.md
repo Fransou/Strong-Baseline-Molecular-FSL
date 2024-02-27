@@ -14,6 +14,8 @@
 
 # Codebase for the paper "Is meta-learning necessary for few-shot molecular learning?"
 
+This codebase was based on the repository of Chen et al.\cite{}, itself based on the FS-mol repository\cite{}.
+
 ## :clipboard: Installation
 
 To use this repository, we recommend using a conda environment.
@@ -27,19 +29,49 @@ conda install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
 conda install pyg -c pyg
 conda install pytorch-scatter -c pyg
 ```
-## Data
 
-The FS-mol dataset can be downloaded straight from the FS-mol repository.
+Finally, to use the CLAMP\cite{} model, run the following command to install the required packages:
+```bash
+pip install git+https://github.com/ml-jku/clamp
+```
+
+*Note that for training MHNFS, and CLAMP models, we refer to the original codebase of the authors\cite{}*
+
+## :floppy_disk: Data
+
+The FS-mol dataset can be downloaded straight from the FS-mol repository\cite{}.
 To use MHNFS, please refer to the original github of the method to preprocess the data.
 
-*A google drive link will be provided to access data once un-anonymized*
 
 Data for the out-of-distribution experiments can be retrieved using the get_data_TDC notebook, to load the tasks imported from the Therapeutic Data Common Plateform.
-To use DATA from the LIT-PCBA paper, select the corresponding dataset from the authors platform (http://drugdesign.unistra.fr/LIT-PCBA) and use the "lit_pcba_to_csv.py" script to convert the data to the format used in the out-of-distribution experiments.
+To use DATA from the LIT-PCBA paper\cite{}, select the corresponding dataset from the authors platform (http://drugdesign.unistra.fr/LIT-PCBA) and use the "lit_pcba_to_csv.py" script to convert the data to the format used in the out-of-distribution experiments.
 
-*A google drive link will be provided to access data once un-anonymized*
+All the data used in the paper, can be downloaded from the following link: [Data]()
 
-## Training and evaluation of models on FS-mol 
+## :pill: Training and evaluation of models on FS-mol 
+
+All model weights can be found in the following link: [Models]()
+
+### Configuration files
+
+Most of the parameters used to train the models can be found in the configuration files of the models.
+For instance, to evaluate a quadratic probe, refer to the configuration file [configs/QP/eval.json](fs_mol/configs/QP/eval.json).
+To train a multitask model, the configuration file [configs/QP/train.json](fs_mol/configs/QP/train.json) can be used.
+
+For instance, for the quadratic and linear probes, the configuration files of the evaluation have the following architectures:
+```json
+{
+   "backbone": "<path to the backbone of the model>",
+   "optimizer_config": {
+    "epochs": "number of epochs or json-like linking the task size and number of epochs",
+    "learning_rate": "learning rate of the model"
+  },
+  "backbone_config": "json-like configuration of the GNN backbone"
+  # other parameters...
+}
+```
+
+
 
 ### Quadratic probe
 
@@ -54,7 +86,7 @@ And to run the evaluation, use the following command:
 python fs_mol/qprobe_eval.py --fold {VALIDATION/TEST}
 ```
 
-The configuration files of the models are found in the fs_mol/configs/simplebsl directory
+The configuration files of the models are found in the fs_mol/configs/QP directory
 
 ### Linear probe
 
@@ -74,12 +106,11 @@ To adapt the CLAMP model to the FS-Mol VALIDATION/TEST set, use the following co
 python fs_mol/clamp_eval.py --fold {VALIDATION/TEST}
 ```
 
-The pretraining of the CLAMP model was done using the original CLAMP codebase, achieving a 0-shot Delta-AUCPR of 0.20.
-*The weights of the models are too large to be uploaded on github*
+The pretraining of the CLAMP model was done using the original CLAMP codebase, achieving a 0-shot Delta-AUCPR of 0.20 on FS-mol.
 
 ### MHNFS
 
-To train the model, used the original codebase of MHNFS.
+To train the model, the original codebase of MHNFSwas used.
 To run the evaluation, use the following command:
 
 ```bash
@@ -88,7 +119,9 @@ python fs_mol/mhnfs_eval.py
 
 The model was pretrained with the authors' codebase, the backbone achieving a Delta-AUCPR of 0.25 on the FS-Mol dataset.
 
-# Out-of-distribution experiments
+
+
+# :test_tube: Out-of-distribution experiments
 
 The directory containing the codebase for the out-of-distribution experiments is found in the TDC_tasks directory.
 The directory evaluator contains the code enabling the use of the various models on the TDC tasks (note that MAML and GNN-MT are available although not discussed in the original paper, as they take a long time to run on these tasks)
