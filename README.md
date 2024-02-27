@@ -14,7 +14,8 @@
 
 # Codebase for the paper "Is meta-learning necessary for few-shot molecular learning?"
 
-This codebase was based on the repository of Chen et al.\cite{}, itself based on the FS-mol repository\cite{}.
+This codebase was based on the repository of Chen et al.'s ADKT-IFT model\cite{},
+itself based on the FS-mol repository\cite{}.
 
 ## :clipboard: Installation
 
@@ -123,8 +124,11 @@ The model was pretrained with the authors' codebase, the backbone achieving a De
 
 # :test_tube: Out-of-distribution experiments
 
-The directory containing the codebase for the out-of-distribution experiments is found in the TDC_tasks directory.
-The directory evaluator contains the code enabling the use of the various models on the TDC tasks (note that MAML and GNN-MT are available although not discussed in the original paper, as they take a long time to run on these tasks)
+## Evaluation scripts
+
+The directory containing the codebase for the out-of-distribution experiments is found in the [TDC_tasks](TDC_tasks) directory.
+The directory evaluator contains the code enabling the use of the various models on the TDC tasks.
+*Note that MAML and GNN-MT are also available but both are very computationally expensive.*
 
 To run the experiments on the DTI tasks, use the following command:
 
@@ -141,20 +145,18 @@ python TDC_tasks/main_HTS.py --models {models to evaluate} --task_names {tasks t
 
 ## Results of the out-of-distribution experiments
 
-The results of the out-of-distribution experiments are found in the TDC_tasks/results directory.
+The results of the out-of-distribution experiments are found in the [TDC_tasks/results](TDC_tasks/results) directory.
 These can be analyzed using the notebooks found in the TDC_tasks directory.
 
 
-This repisotory is built on the fork of ADKT-IFT (Chen et al. 2023).
+-----------------------------------------------------------------------------------------
+
+
+-----------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------
 find below the original README for the FS-Mol dataset and codebase.
 
-
------------------------------------------------------------------------------------------
-
-
------------------------------------------------------------------------------------------
-
------------------------------------------------------------------------------------------
 # FS-Mol: A Few-Shot Learning Dataset of Molecules
 
 This repository contains data and code for FS-Mol: A Few-Shot Learning Dataset of Molecules.
