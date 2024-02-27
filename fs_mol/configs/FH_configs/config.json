@@ -1,0 +1,16 @@
+{
+  "backbone": "",
+  "backbone_config": {
+    "fc_hidden_dim": 256,
+    "fc_out_dim": 256,
+    "fc_dropout": 0.2,
+    "fc_layers": 1,
+    "residual": false,
+    "norm": "layer",
+    "used_features": "ecfp+fc"
+  },
+  "optimizer_config": {
+    "epochs": 200,
+    "learning_rate": 0.0001
+  }
+}

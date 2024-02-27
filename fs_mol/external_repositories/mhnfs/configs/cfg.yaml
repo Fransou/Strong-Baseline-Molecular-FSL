@@ -1,0 +1,17 @@
+defaults:
+  - system: system
+  - model:  mhnfs
+supportSet:
+  supportSetSize: 16
+context:
+  ratio_training_molecules: 0.05
+training:
+  seed: 1234
+  epochs: 350
+validation:
+  batch_size: 1000 # 10
+test:
+  batch_size: 1000 #10
+experiment_name: mhnfs
+project_name: fsmol_benchmarking
+

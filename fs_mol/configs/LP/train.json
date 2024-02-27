@@ -1,0 +1,33 @@
+{
+  "backbone": "",
+  "unfreeze_backbone": "train",
+  "max_num_graphs": 512,
+  "optimizer_config": {
+    "learning_rate": 0.0001,
+    "epochs": 60
+  },
+  "backbone_config": {
+    "fc_hidden_dim": 1024,
+    "fc_out_dim": 512,
+    "fc_dropout": 0.1,
+    "fc_layers": 1,
+    "residual": false,
+    "norm": "batch",
+    "graph_feature_extractor_config": {
+      "gnn_config": {
+        "dropout_rate": 0.2,
+        "num_layers": 3
+      },
+      "readout_config": {
+        "readout_type": "mean",
+        "use_all_states": false
+      }
+    }
+  },
+  "fsl_config": {
+    "temperature": 1,
+    "optimizer_config": {
+      "epochs": 100
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "temperature": 1,
+  "optimizer_config": {
+    "learning_rate": 0.001,
+   "epochs": {
+     "16": 0,
+     "32": 51,
+     "64": 95,
+     "128": 68
+   }
+  }
+}

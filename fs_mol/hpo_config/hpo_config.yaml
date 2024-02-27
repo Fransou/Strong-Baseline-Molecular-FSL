@@ -1,0 +1,26 @@
+# config.yaml
+program: fs_mol/clamp_hpo.py
+method: grid
+name: sweep
+metric:
+  goal: maximize
+  name: mean_best_aucpr
+parameters:
+  backbone:
+    values: ["backbone_pretrained_models/1024-512.pt"]
+  temperature:
+    values: [1,2,3]
+  lmbd_maha:
+    values: [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
+  opt_cov:
+    values: [false]
+  optimizer_config__learning_rate:
+    values: [0.001]
+
+command:
+  - python
+  - ${program}
+  - --train-sizes
+  - [16,32,64,128]
+  - --fold
+  - VALIDATION
