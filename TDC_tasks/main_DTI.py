@@ -1,4 +1,3 @@
-# TODO add FH, GNN-MAML, PAR?
 import os
 import sys
 import pandas as pd
@@ -28,27 +27,23 @@ from TDC_tasks.estimators import (
     SimpleBaselineEvaluator,
     SimSearchEvaluator,
     LinearProbeEvaluator,
-    # MultitaskEvaluator,
-    # MamlEvaluator,
-    # ClampEvaluator,
+    ClampEvaluator,
 )
-#from TDC_tasks.estimators.clamp_estimators import prepro_smiles
+from TDC_tasks.estimators.clamp_estimators import prepro_smiles
 
 
 MODELS = {
     "protonet": PrototypicalNetworkEvaluator(),
-    # "clamp": ClampEvaluator(),
+    "clamp": ClampEvaluator(),
     "QP": SimpleBaselineEvaluator(),
     "simsearch": SimSearchEvaluator(),
     "adkt": AdktEvaluator(),
-    # "multitask": MultitaskEvaluator(),
-    # "maml": MamlEvaluator(),
     "linear_probe": LinearProbeEvaluator(),
 }
 
 
 def run_eval_fn_on_task_sample(evaluator, task_sample, y_support, y_query, fp_dict=None):
-    if False:#isinstance(evaluator, ClampEvaluator):
+    if isinstance(evaluator, ClampEvaluator):
         y = evaluator(
             torch.stack([fp_dict[s.smiles] for s in task_sample.train_samples]),
             torch.stack([fp_dict[s.smiles] for s in task_sample.test_samples]),

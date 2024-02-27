@@ -228,7 +228,6 @@ def launch_evaluation(
             p_bar=p_bar,
             df_loss_log=df_loss_log,
             df_results=df_preds,
-            pca_plot=args.pca_plot,
         ),
         dataset=fsmol_dataset,
         fold=datafold,
@@ -236,7 +235,6 @@ def launch_evaluation(
         num_samples=args.num_runs,
         seed=args.seed,
         out_dir=args.save_dir,
-        threshold_activity=args.threshold_activity,
     )
     df_task_result = pd.DataFrame()
     for i in range(len(args.train_sizes)):

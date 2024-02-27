@@ -147,7 +147,7 @@ class LinearProbe(nn.Module):
     def get_loss(self, return_loss_components=False):
         if not return_loss_components:
             p_support = self.predict(only_support=True)
-            loss = self.loss(p_support, self.y_support, None)
+            loss = self.loss(p_support, self.y_support)
             return loss, p_support
         p_all = self.predict(only_support=False)
         p_support = p_all[: len(self.y_support)]

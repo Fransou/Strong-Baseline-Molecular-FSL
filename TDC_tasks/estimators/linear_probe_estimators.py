@@ -7,7 +7,7 @@ from fs_mol.configs import LinearProbeConfig
 from fs_mol.utils.torch_utils import torchify
 
 class LinearProbeEvaluator:
-    def __init__(self, file="fs_mol/configs/QP/lp.json", device="cuda", **kwargs):
+    def __init__(self, file="fs_mol/configs/LP/lp.json", device="cuda", **kwargs):
         self.device = device
         with open(file) as f:
             config = json.load(f)

@@ -24,7 +24,6 @@ def read_file_from_path_queue(
     reader_fn: Callable[[List[RichPath], int], Iterable[ReaderOutputType]],
     termination_signal: EventType,
     reader_chunk_size: int,
-        threshold_activity: Optional[float] = None,
 ):
     try:
         chunk_idx = 0
@@ -36,7 +35,7 @@ def read_file_from_path_queue(
                 paths = []
                 for _ in range(reader_chunk_size):
                     paths.append(input_paths.get(timeout=1))
-                for reader_output in reader_fn(paths, chunk_idx, threshold_activity):
+                for reader_output in reader_fn(paths, chunk_idx):
                     output_queue.put(reader_output)
                 chunk_idx += 1
             except Empty:
@@ -113,7 +112,6 @@ class BufferedFileReaderIterator(Iterator[ReaderOutputType]):
         num_workers: int,
         buffer_size: int = 30,
         reader_chunk_size: int = 1,
-        threshold_activity: Optional[float] = None,
     ):
         self._reader_fn = reader_fn
         self._data_paths = data_paths
@@ -122,7 +120,6 @@ class BufferedFileReaderIterator(Iterator[ReaderOutputType]):
         self._num_workers = num_workers
         self._buffer_size = buffer_size
         self._reader_chunk_size = reader_chunk_size
-        self._threshold_activity = threshold_activity
 
         # We'll set up the processes once we start iterating
         self._processes: List[Process] = []
@@ -153,7 +150,6 @@ class BufferedFileReaderIterator(Iterator[ReaderOutputType]):
                     self._reader_fn,
                     self._termination_signal,
                     self._reader_chunk_size,
-                    self._threshold_activity,
                 ),
             )
             for _ in range(self._num_workers)
@@ -285,7 +281,6 @@ class SequentialFileReaderIterable(Iterable[ReaderOutputType]):
         repeat: bool,
         buffer_size: int = 30,
         reader_chunk_size: int = 1,
-        threshold_activity: Optional[float] = None,
     ):
         self._reader_fn = reader_fn
         self._data_paths = data_paths
@@ -293,7 +288,6 @@ class SequentialFileReaderIterable(Iterable[ReaderOutputType]):
         self._repeat = repeat
         self._buffer_size = buffer_size
         self._reader_chunk_size = reader_chunk_size
-        self._threshold_activity = threshold_activity
 
     def __iter__(self) -> Iterator[ReaderOutputType]:
         chunk_idx = 0
@@ -304,7 +298,7 @@ class SequentialFileReaderIterable(Iterable[ReaderOutputType]):
                 chunk_paths = []
                 for _ in range(self._reader_chunk_size):
                     chunk_paths.append(input_paths.pop())
-                for reader_output in self._reader_fn(chunk_paths, chunk_idx, self._threshold_activity):
+                for reader_output in self._reader_fn(chunk_paths, chunk_idx):
                     yield reader_output
                 chunk_idx += 1
             except (StopIteration, IndexError):

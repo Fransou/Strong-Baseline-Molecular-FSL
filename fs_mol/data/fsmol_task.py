@@ -98,7 +98,7 @@ class FSMolTask:
         return list(pos_samples), list(neg_samples)
 
     @staticmethod
-    def load_from_file(path: RichPath, threshold_activity: Optional[float] = None) -> "FSMolTask":
+    def load_from_file(path: RichPath) -> "FSMolTask":
         samples = []
         all_log_activities = []
         for raw_sample in path.read_by_file_suffix():
@@ -130,9 +130,7 @@ class FSMolTask:
                 MoleculeDatapoint(
                     task_name=get_task_name_from_path(path),
                     smiles=raw_sample["SMILES"],
-                    bool_label=bool(float(raw_sample["Property"]))
-                    if threshold_activity is None
-                    else log_activity > threshold_activity,
+                    bool_label=bool(float(raw_sample["Property"])),
                     numeric_label=float(raw_sample.get("RegressionProperty") or "nan"),
                     pxc50=log_activity,
                     task_threshold=task_threshold,

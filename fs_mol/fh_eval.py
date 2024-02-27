@@ -185,7 +185,6 @@ def launch_evaluation(
         num_samples=args.num_runs,
         seed=args.seed,
         out_dir=args.save_dir,
-        threshold_activity=args.threshold_activity,
     )
     df_task_result = pd.DataFrame()
     for i in range(len(args.train_sizes)):

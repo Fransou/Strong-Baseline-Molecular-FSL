@@ -4,5 +4,4 @@ from .simple_bsl_estimators import SimpleBaselineEvaluator
 from .simsearch_estimators import SimSearchEvaluator
 from .multitask_estimators import MultitaskEvaluator
 from .linear_probe_estimators import LinearProbeEvaluator
-#from .maml_estimator import MamlEvaluator
-#from .clamp_estimators import ClampEvaluator
+from .clamp_estimators import ClampEvaluator

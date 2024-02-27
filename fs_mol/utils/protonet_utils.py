@@ -101,7 +101,6 @@ def evaluate_protonet_model(
     query_size: Optional[int] = None,
     data_fold: DataFold = DataFold.VALIDATION,
     save_dir: Optional[str] = None,
-    threshold_activity: Optional[float] = None,
 ) -> Dict[str, List[FSMolTaskSampleEvalResults]]:
 
     batcher = get_protonet_batcher(max_num_graphs=batch_size)
@@ -137,7 +136,6 @@ def evaluate_protonet_model(
         test_size_or_ratio=query_size,
         fold=data_fold,
         seed=seed,
-        threshold_activity=threshold_activity,
     )
 
 

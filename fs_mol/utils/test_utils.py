@@ -175,7 +175,6 @@ def eval_model(
     fold: DataFold = DataFold.TEST,
     task_reader_fn: Optional[Callable[[List[RichPath], int], Iterable[FSMolTask]]] = None,
     seed: int = 0,
-    threshold_activity: Optional[float] = None,
 ) -> Dict[str, List[FSMolTaskSampleEvalResults]]:
     """Evaluate a model on the FSMolDataset passed.
 
@@ -198,7 +197,6 @@ def eval_model(
         seed: an base external seed value. Repeated runs vary from this seed.
     """
     task_reading_kwargs = {"task_reader_fn": task_reader_fn} if task_reader_fn is not None else {}
-    task_reading_kwargs["threshold_activity"] = threshold_activity
     task_to_results: Dict[str, List[FSMolTaskSampleEvalResults]] = {}
 
     for task in dataset.get_task_reading_iterable(fold, **task_reading_kwargs):

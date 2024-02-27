@@ -58,7 +58,6 @@ def run_evaluation(
     num_samples: int,
     seed: int,
     batch_size: int,
-    threshold_activity: float = None,
 ):
     """
     Same procedure as validation for prototypical networks. Each validation task is used to
@@ -74,7 +73,6 @@ def run_evaluation(
         batch_size=batch_size,
         save_dir=save_dir,
         data_fold= DataFold.TEST,
-        threshold_activity=threshold_activity
     )
 
 
@@ -106,7 +104,6 @@ def main():
         num_samples=args.num_runs,
         seed=args.seed,
         batch_size=args.batch_size,
-        threshold_activity=args.threshold_activity,
     )
 
 

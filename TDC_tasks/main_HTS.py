@@ -22,21 +22,18 @@ from TDC_tasks.estimators import (
     MultitaskEvaluator,
     LinearProbeEvaluator,
     ClampEvaluator,
-    # MamlEvaluator,
 )
 from TDC_tasks.estimators.clamp_estimators import prepro_smiles
 import time
 
 
 MODELS = {
-    "protonet": PrototypicalNetworkEvaluator,  # 20min - 120 - 5000
-    "QP": SimpleBaselineEvaluator,  # 3min - 120 - 5000
-    "simsearch": SimSearchEvaluator,  # 9min - 120 - 5000
-    "adkt": AdktEvaluator,  # 30min - 120 - 5000
-    "linear_probe": LinearProbeEvaluator,  #
-    #"multitask": MultitaskEvaluator,  # SUPER LOOOOOOOONG
+    "protonet": PrototypicalNetworkEvaluator,
+    "QP": SimpleBaselineEvaluator,
+    "simsearch": SimSearchEvaluator,
+    "adkt": AdktEvaluator,
+    "linear_probe": LinearProbeEvaluator,
     "clamp": ClampEvaluator,
-    #"maml": MamlEvaluator,
 }
 
 
@@ -66,10 +63,14 @@ def main(task_sizes, random_seeds, task_names, task_props, p_bar):
     for task_name in task_names:
         if os.path.exists(f"TDC_tasks/data/HTS/{task_name}_preprocessed.csv"):
             task = open_dataset(
-                f"TDC_tasks/data/HTS/{task_name}_preprocessed.csv", "fs_mol/preprocessing/utils/helper_files"
+                f"TDC_tasks/data/HTS/{task_name}_preprocessed.csv",
+                "fs_mol/preprocessing/utils/helper_files",
             )
         else:
-            task = open_dataset(f"TDC_tasks/data/HTS/{task_name}.csv", "fs_mol/preprocessing/utils/helper_files")
+            task = open_dataset(
+                f"TDC_tasks/data/HTS/{task_name}.csv",
+                "fs_mol/preprocessing/utils/helper_files",
+            )
         smiles = [s.smiles for s in task.samples]
         if "clamp" in MODELS.keys():
             fp = prepro_smiles(smiles)
@@ -84,8 +85,18 @@ def main(task_sizes, random_seeds, task_names, task_props, p_bar):
                         t0 = time.time()
                         if model_name == "clamp":
                             y = estimator(
-                                torch.stack([fp_dict[s.smiles] for s in task_sample.train_samples]),
-                                torch.stack([fp_dict[s.smiles] for s in task_sample.test_samples]),
+                                torch.stack(
+                                    [
+                                        fp_dict[s.smiles]
+                                        for s in task_sample.train_samples
+                                    ]
+                                ),
+                                torch.stack(
+                                    [
+                                        fp_dict[s.smiles]
+                                        for s in task_sample.test_samples
+                                    ]
+                                ),
                                 y_support,
                                 y_query,
                             )
@@ -122,28 +133,30 @@ def main(task_sizes, random_seeds, task_names, task_props, p_bar):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--random_seeds", nargs="+", type=int, default=[i for i in range(20)])
+    parser.add_argument(
+        "--random_seeds", nargs="+", type=int, default=[i for i in range(20)]
+    )
     parser.add_argument(
         "--task_names",
         nargs="+",
         type=str,
         default=[
-            #"cav3_t-type_calcium_channels_butkiewicz",
-            #"m1_muscarinic_receptor_antagonists_butkiewicz",
-            #"m1_muscarinic_receptor_agonists_butkiewicz",
-            #"orexin1_receptor_butkiewicz",
+            "cav3_t-type_calcium_channels_butkiewicz",
+            # "m1_muscarinic_receptor_antagonists_butkiewicz",
+            # "m1_muscarinic_receptor_agonists_butkiewicz",
+            # "orexin1_receptor_butkiewicz",
             # "SARSCoV2_3CLPro_Diamond",
-            #"HIV",
-            #"SARSCoV2_Vitro_Touret",
-            "ALDH1",
-            "ESR1_ant",
-            "GBA",
-            "MAPK1",
-            "MTORC1",
-            "OPRK1",
-            "PKM2",
-            #"PPARG",
-            #"TP53",
+            # "HIV",
+            # "SARSCoV2_Vitro_Touret",
+            # "ALDH1",
+            # "ESR1_ant",
+            # "GBA",
+            # "MAPK1",
+            # "MTORC1",
+            # "OPRK1",
+            # "PKM2",
+            # "PPARG",
+            # "TP53",
             # "VDR"
         ],
     )
@@ -173,10 +186,16 @@ if __name__ == "__main__":
         "query_prop": [],
         "runtime": [],
     }
-    p_bar = tqdm(total=len(task_sizes) * len(random_seeds) * len(MODELS.keys()) * len(task_names) * len(task_props))
+    p_bar = tqdm(
+        total=len(task_sizes)
+        * len(random_seeds)
+        * len(MODELS.keys())
+        * len(task_names)
+        * len(task_props)
+    )
     results = main(task_sizes, random_seeds, task_names, task_props, p_bar)
     for model_name in MODELS.keys():
         for task_name in task_names:
-            results[(results["model"] == model_name) & (results["task_name"] == task_name)].to_csv(
-                f"TDC_tasks/results/HTS/{model_name}_{task_name}_results.csv"
-            )
+            results[
+                (results["model"] == model_name) & (results["task_name"] == task_name)
+            ].to_csv(f"TDC_tasks/results/HTS/{model_name}_{task_name}_results.csv")

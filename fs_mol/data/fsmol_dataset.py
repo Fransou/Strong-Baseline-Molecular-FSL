@@ -28,10 +28,10 @@ class DataFold(Enum):
     TEST = 2
 
 
-def default_reader_fn(paths: List[RichPath], idx: int, threshold_activity: Optional[float] = None) -> List[FSMolTask]:
+def default_reader_fn(paths: List[RichPath], idx: int) -> List[FSMolTask]:
     if len(paths) > 1:
         raise ValueError()
-    return [FSMolTask.load_from_file(paths[0], threshold_activity=threshold_activity)]
+    return [FSMolTask.load_from_file(paths[0])]
 
 
 class FSMolDataset:
@@ -114,7 +114,6 @@ class FSMolDataset:
         task_reader_fn: Callable[[List[RichPath], int], Iterable[TaskReaderResultType]] = default_reader_fn,
         repeat: bool = False,
         reader_chunk_size: int = 1,
-        threshold_activity: Optional[float] = None,
     ) -> Iterable[TaskReaderResultType]:
         if self._num_workers == 0:
             return SequentialFileReaderIterable(
@@ -123,7 +122,6 @@ class FSMolDataset:
                 shuffle_data=data_fold == DataFold.TRAIN,
                 repeat=repeat,
                 reader_chunk_size=reader_chunk_size,
-                threshold_activity=threshold_activity,
             )
         else:
             return BufferedFileReaderIterable(
@@ -133,5 +131,4 @@ class FSMolDataset:
                 repeat=repeat,
                 reader_chunk_size=reader_chunk_size,
                 num_workers=self._num_workers,
-                threshold_activity=threshold_activity,
             )

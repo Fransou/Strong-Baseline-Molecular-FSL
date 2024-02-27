@@ -167,7 +167,6 @@ def launch_evaluation(
         num_samples=args.num_runs,
         seed=args.seed,
         out_dir=args.save_dir,
-        threshold_activity=args.threshold_activity,
     )
 
     df_task_result = pd.DataFrame()
@@ -191,25 +190,6 @@ def launch_evaluation(
                 ].delta_aucpr.mean()
             }
         )
-
-    wandb.log(
-        {
-            "predictions_positive": wandb.Table(
-                dataframe=df_preds[
-                    (df_preds.y_true == 1) & (df_preds.support_size == 16)
-                ]
-            )
-        }
-    )
-    wandb.log(
-        {
-            "predictions_negative": wandb.Table(
-                dataframe=df_preds[
-                    (df_preds.y_true == 0) & (df_preds.support_size == 16)
-                ]
-            )
-        }
-    )
     finalize_evaluation(df_task_result, save_dir=save_dir)
 
 

@@ -116,7 +116,7 @@ class MultitaskTaskSampleBatchIterableGnn:
         )
 
     def __iter__(self):
-        def paths_to_mixed_samples(paths: List[RichPath], idx: int, threshold_activity:float, **kwargs):
+        def paths_to_mixed_samples(paths: List[RichPath], idx: int, **kwargs):
             loaded_samples: List[MoleculeDatapoint] = []
             for i, path in enumerate(paths):
                 task = FSMolTask.load_from_file(path)

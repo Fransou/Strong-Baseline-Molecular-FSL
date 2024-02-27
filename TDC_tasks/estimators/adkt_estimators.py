@@ -29,7 +29,7 @@ class AdktEvaluator:
 
     def __call__(self, task_sample, y_support, y_query, **kwargs):
         task_preds = []
-        dkt_task_sample = task_sample_to_dkt_task_sample(task_sample, self.batcher, filter_numeric_labels=True)
+        dkt_task_sample = task_sample_to_dkt_task_sample(task_sample, self.batcher, filter_numeric_labels=False)
         for batch_features in dkt_task_sample.batches:
             batch_features = torchify(batch_features, self.device)
             self.model.train()
