@@ -12,16 +12,20 @@
 </script>
 -->
 
-# Temporary README FOR ICML SUBMISSION
+# Codebase for the paper "Is meta-learning necessary for few-shot molecular learning?"
 
-## Installation
+## :clipboard: Installation
 
+To use this repository, we recommend using a conda environment.
+A requirements.txt file is provided to install the required packages,
+and the following commands can be used to install the packages.
+Pytorch, Torch-geometric and Torch-scatter are also required
+(which can be installed using the conda package manager as below).
 ```bash
-conda create -n fsl_test python=3.10
-conda activate fsl_test
 pip install -r requirements.txt 
-pip install pyg_lib torch_scatter torch_sparse torch_cluster 
-pip install torch_geometric
+conda install pytorch pytorch-cuda=12.1 -c pytorch -c nvidia
+conda install pyg -c pyg
+conda install pytorch-scatter -c pyg
 ```
 ## Data
 
