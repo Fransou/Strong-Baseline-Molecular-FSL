@@ -14,8 +14,8 @@
 
 # Codebase for the paper "Is meta-learning necessary for few-shot molecular learning?"
 
-This codebase was based on the repository of Chen et al.'s ADKT-IFT model\cite{},
-itself based on the FS-mol repository\cite{}.
+This codebase was based on the repository of Chen et al.'s ADKT-IFT model[1], 
+itself based on the FS-mol repository[2].
 
 ## :clipboard: Installation
 
@@ -31,21 +31,21 @@ conda install pyg -c pyg
 conda install pytorch-scatter -c pyg
 ```
 
-Finally, to use the CLAMP\cite{} model, run the following command to install the required packages:
+Finally, to use the CLAMP[3] model, run the following command to install the required packages:
 ```bash
 pip install git+https://github.com/ml-jku/clamp
 ```
 
-*Note that for training MHNFS, and CLAMP models, we refer to the original codebase of the authors\cite{}*
+*Note that for training MHNFS, and CLAMP models, we refer to the original codebase of the authors [1,4]*
 
 ## :floppy_disk: Data
 
-The FS-mol dataset can be downloaded straight from the FS-mol repository\cite{}.
+The FS-mol dataset can be downloaded straight from the FS-mol repository[2].
 To use MHNFS, please refer to the original github of the method to preprocess the data.
 
 
-Data for the out-of-distribution experiments can be retrieved using the get_data_TDC notebook, to load the tasks imported from the Therapeutic Data Common Plateform.
-To use DATA from the LIT-PCBA paper\cite{}, select the corresponding dataset from the authors platform (http://drugdesign.unistra.fr/LIT-PCBA) and use the "lit_pcba_to_csv.py" script to convert the data to the format used in the out-of-distribution experiments.
+Data for the out-of-distribution experiments can be retrieved using the get_data_TDC notebook, to load the tasks imported from the Therapeutic Data Common Plateform[5].
+To use DATA from the LIT-PCBA paper[6], select the corresponding dataset from the authors platform (http://drugdesign.unistra.fr/LIT-PCBA) and use the "lit_pcba_to_csv.py" script to convert the data to the format used in the out-of-distribution experiments.
 
 All the data used in the paper, can be downloaded from the following link: [Data]()
 
@@ -148,6 +148,22 @@ python TDC_tasks/main_HTS.py --models {models to evaluate} --task_names {tasks t
 The results of the out-of-distribution experiments are found in the [TDC_tasks/results](TDC_tasks/results) directory.
 These can be analyzed using the notebooks found in the TDC_tasks directory.
 
+
+# :spiral_notepad: References
+
+[1]:Chen, W., Tripp, A., and Hern  ́andez-Lobato,
+J. M. Meta-learning adaptive deep kernel gaussian processes for molecular property prediction.
+In International Conference on Learning Representations, 2023 
+
+[2]:Stanley, M., Bronskill, J. F., Maziarz, K., Misztela, H., Lanini, J., Segler, M., Schneider, N., and Brockschmidt, M. FS-mol: A few-shot learning dataset of molecules. In Thirty-fifth Conference on Neural Information Processing Systems Datasets and Benchmarks Track (Round 2), 2021.
+
+[3]:Seidl, P., Vall, A., Hochreiter, S., and Klambauer, G. Enhancing activity prediction models in drug discovery with the ability to understand human language. Proceedings of the 40th International Conference on Machine Learning (ICML), July 2023.
+
+[4]:Schimunek, J., Seidl, P., Friedrich, L., Kuhn, D., Rippmann, F., Hochreiter, S., and Klambauer, G. Context-enriched molecule representations improve few-shot drug discovery. In The Eleventh International Conference on Learning Representations, 2023.
+
+[5]:Huang, K., Fu, T., Gao, W., Zhao, Y., Roohani, Y. H.,Leskovec, J., Coley, C. W., Xiao, C., Sun, J., and Zitnik, M. Therapeutics data commons: Machine learningdatasets and tasks for drug discovery and development.In Thirty-fifth Conference on Neural Information Process-ing Systems Datasets and Benchmarks Track (Round 1),2021.
+
+[6]:Tran-Nguyen, V.-K., Jacquemard, C., and Rognan, D. Lit-pcba: An unbiased data set for machine learning and virtual screening. Journal of Chemical Information and Modeling, 60(9):4263–4273, 2020. doi: 10.1021/acs.jcim.0c00155.
 
 -----------------------------------------------------------------------------------------
 
