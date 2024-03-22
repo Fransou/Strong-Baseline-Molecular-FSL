@@ -19,7 +19,7 @@ import wandb
 from fs_mol.qprobe_eval import launch_evaluation
 from fs_mol.models.qprobe import *
 from fs_mol.utils.test_utils import add_eval_cli_args, set_up_test_run
-
+from fs_mol.configs import QProbeConfig
 
 logging.basicConfig(
     format=f"""{time.strftime("%d_%b_%H_%M", time.localtime())}:::%(levelname)s:%(message)s""",
@@ -98,7 +98,7 @@ def generate_model_config(dict_wandb, run_keys):
             else:
                 model_config[k] = v
     model_config["optimizer_config"] = optimizer_config
-    return SimpleBaselineConfig(**model_config)
+    return QProbeConfig(**model_config)
 
 
 def main():

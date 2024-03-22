@@ -33,7 +33,6 @@
       }
     }
   },
-  "temperature": 1,
-  "lmbd_maha": 0.2
+  "temperature": 1
 }
 

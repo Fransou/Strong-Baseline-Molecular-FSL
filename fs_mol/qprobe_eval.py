@@ -29,7 +29,7 @@ from fs_mol.utils.test_utils import add_eval_cli_args, set_up_test_run
 
 warnings.filterwarnings("ignore")
 
-BASE_SUPPORT_SET_SIZE = [16, 32, 64, 128]
+BASE_SUPPORT_SET_SIZE = [2,4,8, 16, 512]
 
 logging.basicConfig(
     format=f"""{time.strftime("%d_%b_%H_%M", time.localtime())}:::%(levelname)s:%(message)s""",

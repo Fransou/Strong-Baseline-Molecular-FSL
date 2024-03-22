@@ -26,7 +26,7 @@ from fs_mol.utils.test_utils import add_eval_cli_args, set_up_test_run
 
 warnings.filterwarnings("ignore")
 
-BASE_SUPPORT_SET_SIZE = [16, 32, 64, 128]
+BASE_SUPPORT_SET_SIZE = [2, 4, 8, 16, 32, 64, 128, 256, 512]
 
 logging.basicConfig(
     format=f"""{time.strftime("%d_%b_%H_%M", time.localtime())}:::%(levelname)s:%(message)s""",
@@ -74,7 +74,7 @@ def parse_command_line():
     parser.add_argument(
         "--model-config",
         type=str,
-        default="fs_mol/configs/LP/lp.json",
+        default="fs_mol/configs/LP/expe.json",
         help="Path to the model config file",
     )
 

@@ -15,12 +15,12 @@ def init_dataclasses(item, class_item):
 @dataclass(frozen=False)
 class OptimizerConfig:
     learning_rate: float = 1e-3
-    epochs: Union[Dict[int, int], int] = 100
+    epochs: Union[Dict[int, int], int] = 500
     clip_grad_norm: float = 1.0
 
     def __post_init__(self):
         if isinstance(self.epochs, int):
-            self.epochs = {i: self.epochs for i in [16, 32, 64, 128, 256]}
+            self.epochs = {i: self.epochs for i in [2, 4, 8, 16, 32, 64, 128, 256, 512]}
         self.epochs = {int(k): v for k, v in self.epochs.items()}
 
 
