@@ -12,7 +12,7 @@
 </script>
 -->
 
-# Codebase for the paper "Is meta-learning necessary for few-shot molecular learning?"
+# Codebase for the paper "A Strong Baseline for Molecular Few-Shot Learning"
 
 This codebase was based on the repository of Chen et al.'s ADKT-IFT model[1], 
 itself based on the FS-mol repository[2].
@@ -111,7 +111,7 @@ The pretraining of the CLAMP model was done using the original CLAMP codebase, a
 
 ### MHNFS
 
-To train the model, the original codebase of MHNFSwas used.
+To train the model, the original codebase of MHNFS was used.
 To run the evaluation, use the following command:
 
 ```bash
